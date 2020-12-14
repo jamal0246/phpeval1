@@ -6,7 +6,7 @@
 
 // var_dump($_REQUEST); //  aide au développement, permet un contrôle : réception des données envoyées par ailleurs
 
-// Réception des données avec un contrôle
+// Réception des données avec un contrôle sur l'existance de la variable "page"
 $page = (isset($_REQUEST["page"]))? $_REQUEST["page"] : "accueil";
 
 // Routage 
@@ -16,20 +16,25 @@ switch($page){
     break;
     case "forminscription" : $template = "formulaire_inscript.php" ;
     break;
-    case "ajoutinscrit" : 
-        echo "test du routage du formulare réussit (futur appel à insert_user()"; 
-        $template = "accueil.php" ; // Les données sont récupérées par la page d'accueil en cours d'élaboration
+    case "ajoutinscrit" : insert_user(); // appel à la fonction ci-dessous déclarée
     break;
     default : $template = "accueil.php";
 }
 
+// Déclaration fonction appelée par le routage aiguillée par la requête "POST" du formulaire envoyé (formulaire_inscript.php)
+//// Création d'une instance (objet) utilisateur renseignée par la requête "POST" du formulaire
 function insert_user(){
-    // en cours d'élaboration
 
-    //header(‘Location:nomdelapage.php’)
+    require_once "models/Utilisateur.php";
+
+    $utilisateur = new Utilisateur ($_POST["id_utilisateur"], $_POST["pseudo"], $_POST["motpasse"]);
+    $utilisateur->save_useur();
+
+    header("Location:index.php");
+    exit;
+
 }
 ?>
-
 
 
 <!-- ******************** Affichage de la page UI pour l'utilisateur du poste client ***************-->
