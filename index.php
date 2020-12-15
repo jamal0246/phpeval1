@@ -1,5 +1,6 @@
 <?php
-var_dump($_GET);
+session_start();
+
 //****************** Réception et traitement des données ******************* */
 
 // session_start(); // en cours
@@ -19,6 +20,12 @@ switch($page){
     break;
     case "ajoutinscrit" : insert_user(); // appel à la fonction ci-dessous déclarée
     break;
+    case "formconnexion" : $template = "formulaire_connexion.php";
+    break;
+    case "connexion" : connect_user(); 
+    break;
+    case "mespace" : $template = "monespace.php";
+    break;
     default : $template = "accueil.php";
 }
 
@@ -33,8 +40,29 @@ function insert_user(){
     $pseudo=$_POST["pseudo"];
     header("Location:index.php?page=accueil");
     exit;
-
 }
+
+// Je déclare la fonction connect_user() qui créera un nouvel objet utilisateur s'il existe (dans le fichier utilisateur.json)
+// puis qui renvoie à la page  "monespace.html"
+// s'il n'existe pas, la fonction renvoie à la page d'accueil
+function connect_user(){
+
+    require_once "models/Utilisateur.php";
+
+    $utilisateur = new Utilisateur ($_GET["idinscrit"], $_POST["pseudo"], $_POST["motpasse"]);
+    
+    $utilisateur->verify_user();
+    $retourverif= $utilisateur->verify_user();
+    $utilisateur->save_useur();
+    if($retourverif=="vrai"){
+        header("Location:index.php?page=mespace"); 
+        exit;   
+    }
+    header("Location:index.php?page=accueil"); 
+    exit;
+}
+
+
 ?>
 
 
@@ -57,6 +85,11 @@ function insert_user(){
                     <li>
                         <a href="index.php?page=forminscription">S'inscrire</a>  <!-- Requête vers le routage pour l'affichage du formulaire -->
                     </li>
+                    <li>
+                        <a href="index.php?page=formconnexion">Se connecter</a>  <!-- Requête vers le routage pour l'affichage du formulaire -->
+                    </li>
+
+
                 </ul>
             </nav>
 
