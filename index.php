@@ -1,4 +1,5 @@
 <?php
+var_dump($_GET);
 //****************** Réception et traitement des données ******************* */
 
 // session_start(); // en cours
@@ -27,10 +28,10 @@ function insert_user(){
 
     require_once "models/Utilisateur.php";
 
-    $utilisateur = new Utilisateur ($_POST["id_utilisateur"], $_POST["pseudo"], $_POST["motpasse"]);
+    $utilisateur = new Utilisateur ($_GET["idinscrit"], $_POST["pseudo"], $_POST["motpasse"]);
     $utilisateur->save_useur();
-
-    header("Location:index.php");
+    $pseudo=$_POST["pseudo"];
+    header("Location:index.php?page=accueil");
     exit;
 
 }
