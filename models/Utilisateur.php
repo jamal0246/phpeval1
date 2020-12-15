@@ -11,7 +11,6 @@ class Utilisateur {
         $this->motpasse = $motpasse;
     }
   
-    // Elaboré sur le modele vu en cours
     function save_useur() {
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
@@ -43,5 +42,31 @@ class Utilisateur {
         fwrite($handle, $json);
         //echo "Je ferme mon fichier !";
         fclose($handle);
+    }
+
+    function verify_user(){
+        /* TODO la fonction vérifira a partir du fichier des utilisateurs 
+        enregistrés, vérifiera la correspondance entre 
+        un utilisateur et son mot de passe.*/
+
+        //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
+        $contenu = (file_exists("datas/utilisateurs.json"))? file_get_contents("datas/utilisateurs.json") : "";
+        //var_dump($contenu);
+    
+        //echo "Je décode mon JSON en structure PHP (tableau associatif) :<br>";
+        $utilisateurs = json_decode($contenu);
+        //var_dump($utilisateurs);
+       
+        $utilisateurs = (is_array($utilisateurs))? $utilisateurs : [];
+       // var_dump($utilisateurs);
+
+        // Parcours le tableau pour vérifier s'il existe un même pseudo pour un même mot de passe
+        // ce qui signifie que l'utilsateur existe et renvoi "vrai" :-)
+        foreach ($utilisateurs as $key=>$utilisateur){
+
+            if($utilisateur->pseudo == $this->pseudo && $utilisateur->motpasse == $this->motpasse){
+                    return "vrai";
+            }
+        }
     }
 }
