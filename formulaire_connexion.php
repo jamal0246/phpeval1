@@ -39,7 +39,7 @@ $idcle= (array_key_exists($len-1, $utilisateurs) ?  $len : 0);
             <label for="pseudo"> Votre pseudo </label>
             <input type="text" id="pseudo" name="pseudo" placeholder="saisir votre pseudo">
             <label for="motpasse"> Votre mot de passe </label>
-            <input type="text" id="motpasse" name="motpasse" placeholder="saisir votre mot de passe">
+            <input type="password" id="motpasse" name="motpasse" placeholder="saisir votre mot de passe" required>
             <button type="submit" id="connexion" name="connexion"> Connexion   </button>
         </form>
 
