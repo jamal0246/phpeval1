@@ -11,6 +11,10 @@ class Utilisateur {
         $this->motpasse = $motpasse;
     }
   
+    function getPseudo() {
+        return $this->pseudo;
+    }
+
     function save_useur() {
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
