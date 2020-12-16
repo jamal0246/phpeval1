@@ -54,6 +54,12 @@ function connect_user(){
     $utilisateur->verify_user();
     $retourverif= $utilisateur->verify_user();
     $utilisateur->save_useur();
+
+    // J'enregistre mon objet en session pour pouvoir utiliser les données de l'objet depuis index.php
+    $connect= serialize($utilisateur); 
+    $_SESSION["user"]=$connect;
+
+
     if($retourverif=="vrai"){
         header("Location:index.php?page=mespace"); 
         exit;   
