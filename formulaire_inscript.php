@@ -22,8 +22,8 @@ $len=count($utilisateurs);
 $idcle= (array_key_exists($len-1, $utilisateurs) ?  $len : 0);
 //var_dump($idcle);
 
-
 ?>
+
 
 <div id="content" style="background: rgb(177, 213, 228);">
     <h3> Inscrivez-vous</h3>
