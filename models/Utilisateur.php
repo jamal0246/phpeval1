@@ -11,14 +11,17 @@ class Utilisateur {
         $this->motpasse = $motpasse;
     }
   
+
+// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
     function getPseudo() {
         return $this->pseudo;
-    }
 
+    }
+// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
     function getId_utilisateur() {
         return $this->id_utilisateur;
     }
-
+// Déclaration permattant d'enregistrer l'objet dans un fichier JSON
     function save_useur() {
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
@@ -52,10 +55,9 @@ class Utilisateur {
         fclose($handle);
     }
 
+
+// Déclaration d'une fonction vérifiant l'existance d'un utilisateur inscrit dans le fichier JSON (cf. fonction save_useur())
     function verify_user(){
-        /* TODO la fonction vérifira a partir du fichier des utilisateurs 
-        enregistrés, vérifiera la correspondance entre 
-        un utilisateur et son mot de passe.*/
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
         $contenu = (file_exists("datas/utilisateurs.json"))? file_get_contents("datas/utilisateurs.json") : "";
