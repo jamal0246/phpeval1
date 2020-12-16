@@ -30,7 +30,7 @@ $idcle= (array_key_exists($len-1, $utilisateurs) ?  $len : 0);
 
         <form action="index.php?page=ajoutinscrit&idinscrit= <?=$idcle?>" method="POST"> <!-- routage des données envoyées par le script dont l'id_session par idinscript -->
             <label for="pseudo"> Votre pseudo </label>
-            <input type="text" id="pseudo" name="pseudo" placeholder="saisir votre pseudo">
+            <input type="text" id="pseudo" name="pseudo" placeholder="saisir votre pseudo" required>
             <label for="motpasse"> Votre mot de passe </label>
             <input type="password" id="motpasse" name="motpasse" placeholder="saisir votre mot de passe" required>
             <button type="submit" id="envoyer" name="envoyer">Envoyer </button>
