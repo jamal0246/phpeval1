@@ -1,12 +1,11 @@
 <?php
-session_start();
-var_dump($_REQUEST);
+session_start(); // Création ci_dessu d'une session sur la page index.php 
+
+//var_dump($_REQUEST); aide au développement, permet un contrôle : réception des données envoyées par ailleurs
+
 //****************** Réception et traitement des données ******************* */
 
-// session_start(); // en cours
 // var_dump($_SESSION); aide au développement, permet un contrôle : réception des données envoyées par ailleurs
-
-// var_dump($_REQUEST); //  aide au développement, permet un contrôle : réception des données envoyées par ailleurs
 
 // Réception des données avec un contrôle sur l'existance de la variable "page"
 $page = (isset($_REQUEST["page"]))? $_REQUEST["page"] : "accueil";
@@ -22,14 +21,12 @@ switch($page){
     break;
     case "formconnexion" : $template = "formulaire_connexion.php";
     break;
-    case "connexion" : connect_user(); 
+    case "connexion" : connect_user(); // appel à la fonction ci-dessous déclarée
     break;
     case "mespace" : $template = "monespace.php";
     break;
-    case "inserttache" : insert_tache();
-        // $template = "monespace.php";
+    case "inserttache" : insert_tache(); // appel à la fonction ci-dessous déclarée
     break;
-
     default : $template = "accueil.php";
 }
 
@@ -62,9 +59,6 @@ function connect_user(){
     // J'enregistre mon objet en session pour pouvoir utiliser les données de l'objet depuis index.php
     $connect= serialize($utilisateur); 
     $_SESSION["user"]=$connect;
-    
-    
-
 
     if($retourverif=="vrai"){
         header("Location:index.php?page=mespace"); 
@@ -78,7 +72,6 @@ function insert_tache(){
 
         require_once "models/Utilisateur.php";
 
-
         $connect=unserialize($_SESSION["user"]);
 
         $idconn=$connect->getId_utilisateur();
@@ -90,12 +83,11 @@ function insert_tache(){
         $tache= new Tache ($idconn, $_POST["nom"], $_POST["date"]); //ici l'objet reçoit l'id de l'utilisateur connecté par la variable "idonn"
         $tache->save_tache();
 
-        //var_dump($tache->getNomtache());
-        //var_dump($tache->getDatelimite());
-        //var_dump($tache);
-
+        //var_dump($tache->getNomtache()); test
+        //var_dump($tache->getDatelimite()); test
+        //var_dump($tache); test
+        header("Location:index.php?page=mespace");
         exit;
-
 }
 
 ?>
