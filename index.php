@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+var_dump($_REQUEST);
 //****************** Réception et traitement des données ******************* */
 
 // session_start(); // en cours
@@ -26,6 +26,10 @@ switch($page){
     break;
     case "mespace" : $template = "monespace.php";
     break;
+    case "inserttache" : insert_tache();
+        // $template = "monespace.php";
+    break;
+
     default : $template = "accueil.php";
 }
 
@@ -54,10 +58,12 @@ function connect_user(){
     $utilisateur->verify_user();
     $retourverif= $utilisateur->verify_user();
     $utilisateur->save_useur();
-
+    
     // J'enregistre mon objet en session pour pouvoir utiliser les données de l'objet depuis index.php
     $connect= serialize($utilisateur); 
     $_SESSION["user"]=$connect;
+    
+    
 
 
     if($retourverif=="vrai"){
@@ -68,6 +74,29 @@ function connect_user(){
     exit;
 }
 
+function insert_tache(){
+
+        require_once "models/Utilisateur.php";
+
+
+        $connect=unserialize($_SESSION["user"]);
+
+        $idconn=$connect->getId_utilisateur();
+        //var_dump($idconn);
+        //var_dump($_GET["idutilisateur"]);
+
+        require_once "models/Tache.php";
+
+        $tache= new Tache ($idconn, $_POST["nom"], $_POST["date"]); //ici l'objet reçoit l'id de l'utilisateur connecté par la variable "idonn"
+        $tache->save_tache();
+
+        //var_dump($tache->getNomtache());
+        //var_dump($tache->getDatelimite());
+        //var_dump($tache);
+
+        exit;
+
+}
 
 ?>
 

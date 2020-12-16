@@ -15,6 +15,10 @@ class Utilisateur {
         return $this->pseudo;
     }
 
+    function getId_utilisateur() {
+        return $this->id_utilisateur;
+    }
+
     function save_useur() {
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
@@ -23,7 +27,7 @@ class Utilisateur {
     
         //echo "Je décode mon JSON en structure PHP (tableau associatif) :<br>";
         $utilisateurs = json_decode($contenu);
-        //var_dump($utilisateurses);
+        //var_dump($utilisateurs);
        
         $utilisateurs = (is_array($utilisateurs))? $utilisateurs : [];
     
@@ -31,7 +35,7 @@ class Utilisateur {
         $utilisateur = get_object_vars($this);
         //var_dump($utilisateur);
     
-        //echo "J'ajoute cet utilisateur à mon tableau de utilisateurs (\$livres)";
+        //echo "J'ajoute cet utilisateur à mon tableau de utilisateurs (\$utilisateurs)";
         array_push($utilisateurs, $utilisateur);
         //var_dump($utilisateurs);
     
