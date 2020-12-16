@@ -11,16 +11,20 @@ class Tache {
             $this->datelimite = $datelimite;
         }
 
+// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
         function getNomtache(){
             return $this->nomtache;
         }
+
+// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
         function getDatelimite(){
             return $this->datelimite;
         }
 
-
+// Déclaration permattant d'enregistrer l'objet dans un fichier JSON
         function save_tache(){
-                //echo "Je récupère le contenu de mon fichier taches.json :<br>";
+
+        //echo "Je récupère le contenu de mon fichier taches.json :<br>";
         $contenu = (file_exists("datas/taches.json"))? file_get_contents("datas/taches.json") : "";
         //var_dump($contenu);
     
@@ -47,8 +51,8 @@ class Tache {
     
         //echo "J'écris ma chaîne JSON dans mon fichier taches.json<br>";
         fwrite($handle, $json);
+
         //echo "Je ferme mon fichier !";
         fclose($handle);
     }
-
 }
