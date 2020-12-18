@@ -32,6 +32,7 @@ $idutilisateur=$connect->getId_utilisateur();
         //if($tache->id_utilsateur_t == $idutilisateur){
                // var_dump($tache->id_utilsateur_t);
                // var_dump($tache->nomtache);
+               // var_dump($tache->description);
                // var_dump($tache->datelimite);
         //}
  //}
@@ -51,23 +52,26 @@ $idutilisateur=$connect->getId_utilisateur();
                 <div>
                         <form action="index.php?page=inserttache&idutilisateur=<?=$idutilisateur?>" method="POST" >
                                 <label for="nom">Tâche</label>       
-                                <input type="text" id="nom" name="nom" placeholder="Saisir le nom de la tâche" >
+                                <input type="text" id="nom" name="nom" placeholder="Saisir le nom de la tâche" minlength="0" maxlength="16" size="10">
+                                <label for="descrpition"> Descrption de la tâche </label>
+                                <textarea id="description" name="description"  cols="30" rows="10"> Décrire la tâche </textarea>
                                 <label for="date"></label>
-                                <input type="date" id="date" name="date">
+                                <input type="date" id="date" name="date" required>
                                 
                                 <button type="submit" id="enregistrer" name="enregistrer"> Enregistrer </button>
                         </form>
                         <hr>
                 </div>
                 <div>
-                        <h4> Liste des tâches de la session en cours de connection </h4>
+                        <h4> Liste des tâches de la session en cours de connexion </h4>
                 <div>
                 <div>
                         <table>
                                 <thead>
                                 <tr>
-                                        <th>Id_utilsateur</th>
-                                        <th>Tache</th>
+                                        <th>Id_utilisateur</th>
+                                        <th>Tâche</th>
+                                        <th>Description de la tâche</th>
                                         <th>Date limite</th>
                                 </tr>
                                 </thead>
@@ -78,6 +82,7 @@ $idutilisateur=$connect->getId_utilisateur();
                                         echo "<tr>";
                                         echo "<th>" .  $tache->id_utilsateur_t . "</th>";
                                         echo "<th>" .  $tache->nomtache . "</th>";
+                                        echo "<th>" .  $tache->description . "</th>";
                                         echo "<th>" .  $tache->datelimite . "</th>";
                                         } 
                                 }

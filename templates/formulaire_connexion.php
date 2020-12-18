@@ -37,9 +37,9 @@ $idcle= (array_key_exists($len-1, $utilisateurs) ?  $len : 0);
 
         <form action="index.php?page=connexion&idinscrit= <?=$idcle?>" method="POST"> <!-- routage des données envoyées par le script dont l'id_session par idinscript -->
             <label for="pseudo"> Votre pseudo </label>
-            <input type="text" id="pseudo" name="pseudo" placeholder="saisir votre pseudo" required>
+            <input type="text" id="pseudo" name="pseudo" placeholder="saisir votre pseudo" minlength="0" maxlength="10" size="15">
             <label for="motpasse"> Votre mot de passe </label>
-            <input type="password" id="motpasse" name="motpasse" placeholder="saisir votre mot de passe" required>
+            <input type="password" id="motpasse" name="motpasse" placeholder="saisir votre mot de passe" minlength="0" maxlength="20" size="25">
             <button type="submit" id="connexion" name="connexion"> Connexion   </button>
         </form>
 

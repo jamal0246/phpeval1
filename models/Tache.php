@@ -3,26 +3,52 @@
 class Tache {
     private $id_utilsateur_t;
     private $nomtache;
+    private $description;
     private $datelimite;
 
-        function __construct(string $id_utilsateur_t, string $nomtache, string $datelimite){
+        public function __construct(string $id_utilsateur_t, string $description, string $nomtache, string $datelimite){
             $this->id_utilsateur_t = $id_utilsateur_t;
             $this->nomtache = $nomtache;
+            $this->description = $description;
             $this->datelimite = $datelimite;
         }
 
-// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
-        function getNomtache(){
+// Getter et setter créés pour pouvoir utiliser les données des objets instanciés (car propriété private)
+        
+        public function getid_utilsateur_t(): int {
+            return $this->id_utilsateur_t;
+}
+
+        public function getNomtache(): string {
             return $this->nomtache;
         }
 
-// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
-        function getDatelimite(){
+        public function getDescription(): string {
+            return $this->description;
+        }
+
+        public function getDatelimite(): string{
             return $this->datelimite;
         }
 
+        public function setId_utilsateur_t($id_utilsateur_t): int {
+            $this->$id_utilsateur_t = $id_utilsateur_t;
+        }
+
+        public function setNomtache($nomtache): string {
+            $this->nomtache = $nomtache;
+        }
+
+        public function setDescription($description): string {
+            $this->description = $description;
+        }
+
+        public function setDatelimite($datelimite): string {
+            $this->datelimite = $datelimite;
+        }
+
 // Déclaration permattant d'enregistrer l'objet dans un fichier JSON
-        function save_tache(){
+        public function save_tache(){
 
         //echo "Je récupère le contenu de mon fichier taches.json :<br>";
         $contenu = (file_exists("datas/taches.json"))? file_get_contents("datas/taches.json") : "";

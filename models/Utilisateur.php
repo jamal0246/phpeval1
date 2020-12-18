@@ -4,25 +4,51 @@ class Utilisateur {
     private $id_utilisateur;
     private $pseudo;
     private $motpasse;
+    private $motpasse2;
 
-    function __construct(string $id_utilisateur, string $pseudo,  string $motpasse){
+    public function __construct(string $id_utilisateur, string $pseudo,  string $motpasse, string $motpasse2="0"){
         $this->id_utilisateur = $id_utilisateur;
         $this->pseudo = $pseudo;
         $this->motpasse = $motpasse;
+        $this->motpasse2 = $motpasse2;
     }
   
 
-// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
-    function getPseudo() {
-        return $this->pseudo;
+// Getter et setter créés pour pouvoir utiliser les données des objets instanciés (car propriété private)
 
-    }
-// Getter créé pour pouvoir utiliser les données des objets instanciés (car propriété private)
-    function getId_utilisateur() {
+    public function getId_utilisateur(): int {
         return $this->id_utilisateur;
     }
+
+    public function getPseudo(): string {
+        return $this->pseudo;
+    }
+
+    public function getMotpasse(): string {
+        return $this->$motpasse;
+    }
+
+    public function getMotpasse2(): string {
+        return $this->$motpasse2;
+    }
+
+    public function setId_utilisateur($id_utilisateur): int {
+        $this->id_utilisateur = $id_utilisateur;
+    }
+
+    public function setPseudo($pseudo): string {
+        $this->pseudo = $pseudo;
+    }
+
+    public function settMotpasse($motpasse): string {
+        $this->motpasse = $motpasse;
+    }
+    public function settMotpasse2($motpasse2): string {
+        $this->motpasse = $motpasse2;
+    }
+
 // Déclaration permattant d'enregistrer l'objet dans un fichier JSON
-    function save_useur() {
+    public function save_useur() {
 
         //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
         $contenu = (file_exists("datas/utilisateurs.json"))? file_get_contents("datas/utilisateurs.json") : "";
@@ -57,26 +83,25 @@ class Utilisateur {
 
 
 // Déclaration d'une fonction vérifiant l'existance d'un utilisateur inscrit dans le fichier JSON (cf. fonction save_useur())
-    function verify_user(){
+    // !!!!! fonction en cours d'élaboration ****
+    public function verify_user(): bool{ 
 
-        //echo "Je récupère le contenu de mon fichier utilisateurs.json :<br>";
         $contenu = (file_exists("datas/utilisateurs.json"))? file_get_contents("datas/utilisateurs.json") : "";
-        //var_dump($contenu);
-    
-        //echo "Je décode mon JSON en structure PHP (tableau associatif) :<br>";
         $utilisateurs = json_decode($contenu);
-        //var_dump($utilisateurs);
-       
         $utilisateurs = (is_array($utilisateurs))? $utilisateurs : [];
        // var_dump($utilisateurs);
 
-        // Parcours le tableau pour vérifier s'il existe un même pseudo pour un même mot de passe
-        // ce qui signifie que l'utilsateur existe et renvoi "vrai" :-)
-        foreach ($utilisateurs as $key=>$utilisateur){
+       $verif = false;
 
-            if($utilisateur->pseudo == $this->pseudo && $utilisateur->motpasse == $this->motpasse){
-                    return "vrai";
+        // Parcours le tableau pour vérifier s'il existe un même pseudo pour un même mot de passe
+        foreach ($utilisateurs as $utilisateur){
+
+            if($utilisateur->pseudo == $this->pseudo) {
+                $verif = password_verify($this->motpasse, $utilisateur->motpasse);
+                    $this->id_utilisateur = $utilisateur->id_utilisateur;
             }
         }
+        return $verif;
     }
+
 }
